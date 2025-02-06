@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: azure-voting-app
+  name: azure-voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-voting-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: azure-voting-app
+    spec:
+      containers:
+      - image: aksvotingacr.azurecr.us/azure-voting-app:latest
+        name: azure-voting-app
+        ports:
+        - containerPort: 8080
+        resources: {}
+status: {}
