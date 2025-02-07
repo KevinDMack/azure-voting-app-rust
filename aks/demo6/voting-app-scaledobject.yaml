@@ -1,0 +1,12 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: azure-voting-app-scaledobject
+spec:
+  scaleTargetRef:
+    name: azure-voting-app
+  triggers:
+    - type: cpu
+      metricType: Utilization
+      metadata:
+        value: "50"

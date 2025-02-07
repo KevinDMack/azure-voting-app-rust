@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: azure-voting-app
+  name: azure-voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-voting-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: azure-voting-app
+    spec:
+      containers:
+        - image: aksvotingacr.azurecr.us/azure-voting-app:latest
+          name: azure-voting-app
+          ports:
+            - containerPort: 8080
+          resources: {}
+          env:
+            - name: FIRST_VALUE
+              value: "Dogs"
+            - name: SECOND_VALUE
+              value: "Cats"
+            - name: DATABASE_SERVER
+              value: "azure-voting-db"
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: azure-voting-db-secrets
+                  key: username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: azure-voting-db-secrets
+                  key: password
+status: {}

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: azure-voting-db
+  name: azure-voting-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-voting-db
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: azure-voting-db
+    spec:
+      containers:
+        - image: postgres
+          name: postgres
+          resources: {}
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: azure-voting-db-secrets
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: azure-voting-db-secrets
+                  key: password
+status: {}
