@@ -25,9 +25,9 @@ spec:
           resources: {}
           env:
             - name: FIRST_VALUE
-              value: "Dogs"
+              value: "Army"
             - name: SECOND_VALUE
-              value: "Cats"
+              value: "Navy"
             - name: DATABASE_SERVER
               value: "azure-voting-db"
             - name: DATABASE_USER

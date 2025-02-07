@@ -96,7 +96,7 @@ async fn submit(
     }
 
     let data = json!({
-        "title": "Azure Voting App",
+        "title": "Who is going to win the next game?",
         "button1": VoteValue::FirstValue.to_string(),
         "button2": VoteValue::SecondValue.to_string(),
         "value1": first_value_counter.to_string(),
@@ -140,7 +140,7 @@ async fn index(
     info!("Value 2: {}", VoteValue::SecondValue);
 
     let data = json!({
-        "title": "Azure Voting App",
+        "title": "Who is going to win the Army Navy Game?",
         "button1": VoteValue::FirstValue.to_string(),
         "button2": VoteValue::SecondValue.to_string(),
         "value1": first_value_counter.to_string(),
