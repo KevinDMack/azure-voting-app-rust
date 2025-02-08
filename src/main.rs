@@ -96,7 +96,7 @@ async fn submit(
     }
 
     let data = json!({
-        "title": "Who is going to win the next game?",
+        "title": "Which is your favorite?",
         "button1": VoteValue::FirstValue.to_string(),
         "button2": VoteValue::SecondValue.to_string(),
         "value1": first_value_counter.to_string(),
@@ -140,7 +140,7 @@ async fn index(
     info!("Value 2: {}", VoteValue::SecondValue);
 
     let data = json!({
-        "title": "Who is going to win the Army Navy Game?",
+        "title": "Which are your favorite?",
         "button1": VoteValue::FirstValue.to_string(),
         "button2": VoteValue::SecondValue.to_string(),
         "value1": first_value_counter.to_string(),
