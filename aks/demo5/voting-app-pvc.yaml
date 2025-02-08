@@ -8,4 +8,5 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: managed-csi
+  #storageClassName: managed-csi
+  storageClassName: managed-csi-retain
