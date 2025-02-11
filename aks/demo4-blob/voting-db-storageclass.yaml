@@ -5,8 +5,8 @@ metadata:
 provisioner: blob.csi.azure.com
 parameters:
   skuName: Standard_LRS
-  containerName: mycontainer
-  storageAccount: mystorageaccount
+  containerName: database
+  storageAccount: aksdemostg
   endpoint: blob.core.usgovcloudapi.net
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
