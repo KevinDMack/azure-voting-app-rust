@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: azureblob
+provisioner: blob.csi.azure.com
+parameters:
+  skuName: Standard_LRS
+  containerName: mycontainer
+  storageAccount: mystorageaccount
+  endpoint: blob.core.usgovcloudapi.net
+reclaimPolicy: Delete
+volumeBindingMode: Immediate

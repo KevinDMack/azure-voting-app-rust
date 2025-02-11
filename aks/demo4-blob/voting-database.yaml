@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+
+  labels:
+    app: azure-voting-db
+  name: azure-voting-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-voting-db
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: azure-voting-db
+    spec:
+      containers:
+        - image: postgres
+          name: postgres
+          resources: {}
+          env:
+            - name: POSTGRES_USER_FILE
+              value: "/mnt/secrets-store/database-user"
+            - name: POSTGRES_PASSWORD_FILE
+              value: "/mnt/secrets-store/database-password"
+          volumeMounts:
+            - name: azure-voting-db-secrets
+              mountPath: "/mnt/secrets-store"
+              readOnly: true
+            - name: azure-voting-db-data
+              mountPath: "/var/lib/postgresql/data"
+              subPath: "data"
+      serviceAccountName: azure-voting-app-serviceaccount
+      volumes:
+        - name: azure-voting-db-secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: azure-keyvault-secrets
+        - name: azure-voting-db-data
+          persistentVolumeClaim:
+            claimName: pvc-azuredisk
+status: {}

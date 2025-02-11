@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: azure-voting-app
+  name: azure-voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-voting-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: azure-voting-app
+    spec:
+      containers:
+        - image: aksvotingacr.azurecr.us/azure-voting-app:latest
+          name: azure-voting-app
+          ports:
+            - containerPort: 8080
+          resources: {}
+          env:
+            - name: FIRST_VALUE
+              value: "Army"
+            - name: SECOND_VALUE
+              value: "Navy"
+            - name: DATABASE_SERVER
+              value: "azure-voting-db"
+          volumeMounts:
+            - name: azure-voting-db-secrets
+              mountPath: "/mnt/secrets-store"
+              readOnly: true
+            - name: azure-blob-storage
+              mountPath: "/mnt/blob-storage"
+              readOnly: false
+      serviceAccountName: azure-voting-app-serviceaccount
+      volumes:
+        - name: azure-voting-db-secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: azure-keyvault-secrets
+        - name: azure-blob-storage
+          persistentVolumeClaim:
+            claimName: pvc-azureblob
+status: {}
